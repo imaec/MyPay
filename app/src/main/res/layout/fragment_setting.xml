@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.imaec.mypay.viewmodel.SettingViewModel" />
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/setting"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    style="@style/TextSettingTitle"
+                    android:id="@+id/text_alert"
+                    android:text="@string/alert"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    style="@style/ViewDivider"
+                    android:id="@+id/view_divider1"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_alert_pay_day"
+                    android:text="@string/alert_pay_day"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1" />
+
+                <Switch
+                    style="@style/SwitchSetting"
+                    android:id="@+id/switch_pay_day"
+                    android:checked="@{viewModel.alertPayDay}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider1" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_alert_start"
+                    android:text="@string/alert_start"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert_pay_day" />
+
+                <Switch
+                    style="@style/SwitchSetting"
+                    android:id="@+id/switch_start"
+                    android:checked="@{viewModel.alertStart}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert_pay_day" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_alert_end"
+                    android:text="@string/alert_end"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert_start" />
+
+                <Switch
+                    style="@style/SwitchSetting"
+                    android:id="@+id/switch_end"
+                    android:checked="@{viewModel.alertEnd}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert_start" />
+
+                <View
+                    style="@style/ViewDivider"
+                    android:id="@+id/view_divider2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_alert_end" />
+
+                <TextView
+                    style="@style/TextSettingTitle"
+                    android:id="@+id/text_pay_info"
+                    android:text="@string/pay_info"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider2" />
+
+                <View
+                    style="@style/ViewDivider"
+                    android:id="@+id/view_divider3"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_info" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_pay_title"
+                    android:text="@string/pay"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_pay"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider3" />
+
+                <TextView
+                    style="@style/TextSettingContent"
+                    android:id="@+id/text_pay"
+                    android:text="@{viewModel.pay}"
+                    app:layout_constraintLeft_toRightOf="@id/text_pay_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_divider3" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_pay_day_title"
+                    android:text="@string/pay_day"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_pay_day"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_title" />
+
+                <TextView
+                    style="@style/TextSettingContent"
+                    android:id="@+id/text_pay_day"
+                    android:text="@{viewModel.payDay}"
+                    app:layout_constraintLeft_toRightOf="@id/text_pay_day_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_title" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_work_start_title"
+                    android:text="@string/work_start"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_work_start"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_day_title" />
+
+                <TextView
+                    style="@style/TextSettingContent"
+                    android:id="@+id/text_work_start"
+                    android:text="@{viewModel.start}"
+                    app:layout_constraintLeft_toRightOf="@id/text_work_start_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_day_title" />
+
+                <TextView
+                    style="@style/TextSettingSubTitle"
+                    android:id="@+id/text_work_end_title"
+                    android:text="@string/work_end"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_work_end"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_start_title" />
+
+                <TextView
+                    style="@style/TextSettingContent"
+                    android:id="@+id/text_work_end"
+                    android:text="@{viewModel.end}"
+                    app:layout_constraintLeft_toRightOf="@id/text_work_end_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_start_title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

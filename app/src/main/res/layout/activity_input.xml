@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.imaec.mypay.viewmodel.InputViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/pay_info_title"
+                app:titleTextColor="@color/white"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_pay_info"
+                    style="@style/TextInfoTitle"
+                    android:text="@string/pay_info"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_pay_title"
+                    style="@style/TextInfoSubTitle"
+                    android:text="@string/pay"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/edit_pay"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_info"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <EditText
+                    android:id="@+id/edit_pay"
+                    style="@style/EditInput"
+                    android:text="@{viewModel.pay}"
+                    android:hint="@string/pay_sample"
+                    android:importantForAutofill="no"
+                    app:layout_constraintLeft_toRightOf="@id/text_pay_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_info"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <TextView
+                    android:id="@+id/text_pay_day_title"
+                    style="@style/TextInfoSubTitle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/pay_day"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_pay_day"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_title"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <TextView
+                    android:id="@+id/text_pay_day"
+                    style="@style/TextInfoContent"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.payDay}"
+                    app:layout_constraintLeft_toRightOf="@id/text_pay_day_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_title"
+                    app:layout_constraintWidth_percent="0.8" />
+
+
+                <TextView
+                    android:id="@+id/text_work_info"
+                    style="@style/TextInfoTitle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/work_info"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_pay_day_title" />
+
+                <TextView
+                    android:id="@+id/text_work_start_title"
+                    style="@style/TextInfoSubTitle"
+                    android:text="@string/work_start"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_work_start"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_info"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <TextView
+                    android:id="@+id/text_work_start"
+                    style="@style/TextInfoContent"
+                    android:text="@{viewModel.startTime}"
+                    app:layout_constraintLeft_toRightOf="@id/text_work_start_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_info"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <TextView
+                    android:id="@+id/text_work_end_title"
+                    style="@style/TextInfoSubTitle"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/work_end"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/text_work_end"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_start_title"
+                    app:layout_constraintWidth_percent="0.15" />
+
+                <TextView
+                    android:id="@+id/text_work_end"
+                    style="@style/TextInfoContent"
+                    android:layout_marginTop="8dp"
+                    android:text="@{viewModel.endTime}"
+                    app:layout_constraintLeft_toRightOf="@id/text_work_end_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_start_title"
+                    app:layout_constraintWidth_percent="0.8" />
+
+                <Button
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/confirm"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_work_end_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/view_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bgAlpha"
+            app:visible="@{viewModel.visible}"/>
+
+        <LinearLayout
+            android:id="@+id/linear_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/white"
+            app:behavior_hideable="true"
+            app:layout_behavior="@string/bottom_sheet_behavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_option"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

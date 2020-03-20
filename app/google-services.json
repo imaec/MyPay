@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "990359688321",
+    "firebase_url": "https://mypay-fff6b.firebaseio.com",
+    "project_id": "mypay-fff6b",
+    "storage_bucket": "mypay-fff6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990359688321:android:93840e5a1fe30809e22980",
+        "android_client_info": {
+          "package_name": "com.imaec.mypay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990359688321-us821bq8drfh9vmghhmpn7l3uuv4l79j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTWNosZNZZmIr3_wgoST9hUm3vxSSH7l4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990359688321-us821bq8drfh9vmghhmpn7l3uuv4l79j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

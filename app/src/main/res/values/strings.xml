@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">얼마 벌었지</string>
+    <string name="splash_title">얼마 벌었지?</string>
+    <string name="splash_made">Made by imaec</string>
+
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+
+    <string name="pay_info_title">급여정보 입력</string>
+    <string name="pay_info">급여정보</string>
+    <string name="pay">월급</string>
+    <string name="pay_sample">2,000,000</string>
+    <string name="pay_day">급여일</string>
+    <string name="work_info">근무시간</string>
+    <string name="work_start">출근</string>
+    <string name="work_end">퇴근</string>
+
+    <string name="toast_pay">"급여를 입력해주세요."</string>
+
+    <string name="my_money_title">월급</string>
+
+    <string name="license_title">Icon License Info</string>
+    <string name="license_content">Icon made by Freepik from www.flaticon.com</string>
+
+    <string name="edit">수정</string>
+    <string name="setting">설정</string>
+    <string name="alert">알림</string>
+    <string name="alert_pay_day">월급날 알림</string>
+    <string name="alert_start">출근 알림</string>
+    <string name="alert_end">퇴근 알림</string>
+</resources>

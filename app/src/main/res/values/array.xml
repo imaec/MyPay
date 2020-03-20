@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pay_day">
+        <item>1일</item>
+        <item>2일</item>
+        <item>3일</item>
+        <item>4일</item>
+        <item>5일</item>
+        <item>6일</item>
+        <item>7일</item>
+        <item>8일</item>
+        <item>9일</item>
+        <item>10일</item>
+        <item>11일</item>
+        <item>12일</item>
+        <item>13일</item>
+        <item>14일</item>
+        <item>15일</item>
+        <item>16일</item>
+        <item>17일</item>
+        <item>18일</item>
+        <item>19일</item>
+        <item>20일</item>
+        <item>21일</item>
+        <item>22일</item>
+        <item>23일</item>
+        <item>24일</item>
+        <item>25일</item>
+        <item>26일</item>
+        <item>27일</item>
+        <item>28일</item>
+        <item>29일</item>
+        <item>30일</item>
+        <item>31일</item>
+    </string-array>
+
+    <string-array name="work_time">
+        <item>오전 1시</item>
+        <item>오전 2시</item>
+        <item>오전 3시</item>
+        <item>오전 4시</item>
+        <item>오전 5시</item>
+        <item>오전 6시</item>
+        <item>오전 7시</item>
+        <item>오전 8시</item>
+        <item>오전 9시</item>
+        <item>오전 10시</item>
+        <item>오전 11시</item>
+        <item>오전 12시</item>
+        <item>오후 1시</item>
+        <item>오후 2시</item>
+        <item>오후 3시</item>
+        <item>오후 4시</item>
+        <item>오후 5시</item>
+        <item>오후 6시</item>
+        <item>오후 7시</item>
+        <item>오후 8시</item>
+        <item>오후 9시</item>
+        <item>오후 10시</item>
+        <item>오후 11시</item>
+        <item>오후 12시</item>
+    </string-array>
+</resources>

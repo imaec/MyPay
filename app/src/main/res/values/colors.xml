@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimaryLight">#9CB0BB</color>
+    <color name="colorPrimary">#344955</color>
+    <color name="colorPrimaryDark">#344955</color>
+    <color name="colorAccent">#FAAC1A</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="lightLightGray">#CCCCCC</color>
+    <color name="lightGray">#999999</color>
+    <color name="gray">#666666</color>
+    <color name="darkGray">#333333</color>
+    <color name="black">#000000</color>
+    <color name="bgAlpha">#33000000</color>
+
+    <color name="green">#00FF00</color>
+    <color name="red">#FF0000</color>
+
+    <!-- SeekBar Color -->
+    <color name="default_thumb_color">#ff6f00</color>
+    <color name="default_track_color">#c3a9a9a9</color>
+
+    <array name="default_index_gradient">
+        <item>@color/green</item>
+        <item>@color/red</item>
+    </array>
+
+    <array name="default_track_gradient">
+        <item>@color/default_track_color</item>
+    </array>
+
+    <array name="trackColors">
+        <item>#66B78628</item>
+        <item>#66C69320</item>
+        <item>#66DBA514</item>
+        <item>#66F3D62C</item>
+        <item>#66EEB609</item>
+        <item>#66FCC201</item>
+        <item>#66FFEB59</item>
+        <item>#66FCC201</item>
+        <item>#66FFFFFF</item>
+        <item>#66FFFFFF</item>
+        <item>#66FFFFFF</item>
+        <item>#66FFFFFF</item>
+    </array>
+
+    <array name="progressColors">
+        <item>#B78628</item>
+        <item>#C69320</item>
+        <item>#DBA514</item>
+        <item>#F3D62C</item>
+        <item>#EEB609</item>
+        <item>#FCC201</item>
+        <item>#FFEB59</item>
+        <item>#FCC201</item>
+        <item>#FFFFFF</item>
+        <item>#FFFFFF</item>
+    </array>
+</resources>
