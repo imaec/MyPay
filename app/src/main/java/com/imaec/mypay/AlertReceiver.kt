@@ -70,7 +70,7 @@ class AlertReceiver : BroadcastReceiver() {
         // 평일에만 알림
         if ((alarmId == AlertManager.START || alarmId == AlertManager.END) && !DateUtil.isWorkDay()) return
 
-        wakeUp(context)
+        // wakeUp(context)
         showNotification(context, alarmId, title, message)
     }
 

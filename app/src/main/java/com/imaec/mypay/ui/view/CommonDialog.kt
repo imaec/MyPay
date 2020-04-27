@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.imaec.mypay.R
 import kotlinx.android.synthetic.main.dialog_common.*
 
@@ -23,7 +25,6 @@ class CommonDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_common)
-
 
         val params = window?.attributes?.apply {
             width = ViewGroup.LayoutParams.MATCH_PARENT
@@ -43,6 +44,8 @@ class CommonDialog(context: Context) : Dialog(context) {
         text_cancel.setOnClickListener {
             listenerCancel(this@CommonDialog)
         }
+
+        adInit()
     }
 
     override fun show() {
@@ -76,5 +79,10 @@ class CommonDialog(context: Context) : Dialog(context) {
         this.cancel = str
         listenerCancel = listener
         return this
+    }
+
+    private fun adInit() {
+        MobileAds.initialize(context) {}
+        adView.loadAd(AdRequest.Builder().build())
     }
 }

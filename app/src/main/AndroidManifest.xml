@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
+        android:name="androidx.multidex.MultiDexApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_thumb"
         android:label="@string/app_name"
@@ -26,19 +27,18 @@
             android:launchMode="singleTask"/>
         <activity android:name=".ui.view.activity.InputActivity"/>
 
-        <receiver android:name=".AlertReceiver">
+        <receiver android:name=".AlertReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="ALARM"/>
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".fcm.FCMService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7147836151485354~1207660065"/>
     </application>
 
 </manifest>

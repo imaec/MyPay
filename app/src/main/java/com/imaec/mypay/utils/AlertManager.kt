@@ -50,6 +50,7 @@ class AlertManager {
 
             val intent = Intent(context, AlertReceiver::class.java).apply {
                 action = "ALARM"
+                addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
                 putExtra("ID", alarmId)
                 putExtra("MESSAGE",
                     when (alarmId) {
@@ -77,8 +78,8 @@ class AlertManager {
             val am = (context.getSystemService(Context.ALARM_SERVICE) as AlarmManager)
 
             when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> am.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
-//                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
+                // Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> am.setAlarmClock(AlarmManager.AlarmClockInfo(calendar.timeInMillis, pendingIntent), pendingIntent)
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT -> am.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
                 else -> am.set(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
             }

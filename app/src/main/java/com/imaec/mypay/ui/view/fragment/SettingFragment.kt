@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.imaec.mypay.R
 import com.imaec.mypay.base.BaseFragment
 import com.imaec.mypay.databinding.FragmentSettingBinding
@@ -41,6 +43,8 @@ class SettingFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
             switchStart.setOnCheckedChangeListener(this@SettingFragment)
             switchEnd.setOnCheckedChangeListener(this@SettingFragment)
         }
+
+        adInit()
     }
 
     override fun onResume() {
@@ -54,5 +58,10 @@ class SettingFragment : BaseFragment(), CompoundButton.OnCheckedChangeListener {
             R.id.switch_start -> viewModel.setAlert(KEY.PREF_NAME_ALERT_START, isChecked, 1)
             R.id.switch_end -> viewModel.setAlert(KEY.PREF_NAME_ALERT_END, isChecked, 2)
         }
+    }
+
+    private fun adInit() {
+        MobileAds.initialize(context) {}
+        binding.adView.loadAd(AdRequest.Builder().build())
     }
 }

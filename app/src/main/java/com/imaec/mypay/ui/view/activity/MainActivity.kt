@@ -5,6 +5,7 @@ import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +19,8 @@ import com.imaec.mypay.ui.adapter.ViewPagerAdapter
 import com.imaec.mypay.ui.view.CommonDialog
 import com.imaec.mypay.ui.view.fragment.HomeFragment
 import com.imaec.mypay.ui.view.fragment.SettingFragment
+import com.imaec.mypay.utils.AlertManager
+import com.imaec.mypay.utils.DateUtil
 import com.imaec.mypay.utils.DisplayUtil
 import com.imaec.mypay.viewmodel.MainViewModel
 
@@ -29,6 +32,8 @@ class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+
+    private var currentItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,12 @@ class MainActivity : BaseActivity() {
                 initLayout()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.viewPager.setCurrentItem(currentItem, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -90,10 +101,12 @@ class MainActivity : BaseActivity() {
 
             fab.setOnClickListener {
                 if (bottomAppBar.fabAlignmentMode == END) {
+                    currentItem = 1
                     bottomAppBar.fabAlignmentMode = CENTER
                     viewPager.setCurrentItem(1, PAGER_DURATION)
                     fab.setImageResource(R.drawable.ic_home)
                 } else {
+                    currentItem = 0
                     bottomAppBar.fabAlignmentMode = END
                     viewPager.setCurrentItem(0, PAGER_DURATION)
                     fab.setImageResource(R.drawable.ic_setting)
