@@ -4,9 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:name="androidx.multidex.MultiDexApplication"
+        android:name=".base.BaseApplication"
         android:allowBackup="false"
         android:icon="@drawable/ic_thumb"
         android:label="@string/app_name"
@@ -17,10 +19,17 @@
         <activity android:name=".ui.view.activity.SplashActivity"
             android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/kakao_scheme"
+                    android:host="@string/kakaolink_host" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.view.activity.MainActivity"
@@ -39,6 +48,9 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7147836151485354~1207660065"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
     </application>
 
 </manifest>

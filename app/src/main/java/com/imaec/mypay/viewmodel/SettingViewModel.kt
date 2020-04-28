@@ -1,10 +1,20 @@
 package com.imaec.mypay.viewmodel
 
 import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.imaec.mypay.base.BaseViewModel
 import com.imaec.mypay.utils.*
 import com.imaec.mypay.utils.SharedPreferenceManager.KEY
+import com.kakao.kakaolink.v2.KakaoLinkResponse
+import com.kakao.kakaolink.v2.KakaoLinkService
+import com.kakao.message.template.ButtonObject
+import com.kakao.message.template.ContentObject
+import com.kakao.message.template.FeedTemplate
+import com.kakao.message.template.LinkObject
+import com.kakao.network.ErrorResult
+import com.kakao.network.callback.ResponseCallback
 
 class SettingViewModel(context: Context) : BaseViewModel(context) {
 
@@ -12,6 +22,7 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
     val payDay = MutableLiveData<String>()
     val start = MutableLiveData<String>()
     val end = MutableLiveData<String>()
+    val appVersion = MutableLiveData<String>()
 
     val alertPayDay = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_PAY_DAY))
     val alertStart = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_START))
@@ -22,6 +33,50 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
         payDay.value = SharedPreferenceManager.getString(context, KEY.PREF_NAME_PAY_DAY, "")
         start.value = SharedPreferenceManager.getString(context, KEY.PREF_NAME_WORK_START, "")
         end.value = SharedPreferenceManager.getString(context, KEY.PREF_NAME_WORK_END, "")
+    }
+
+    fun captureGraph() {
+
+    }
+
+    fun share(title: String, description: String, callback: (KakaoLinkResponse?) -> Unit) {
+        val params = FeedTemplate
+            .newBuilder(
+                ContentObject.newBuilder(
+                    title,
+                    "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+                    LinkObject.newBuilder()
+                        .setAndroidExecutionParams("")
+                        .build()
+                )
+                    .setDescrption(description)
+                    .build()
+            )
+            .addButton(
+                ButtonObject(
+                    "자세히 보기",
+                    LinkObject.newBuilder()
+                        .setAndroidExecutionParams("")
+                        .build()
+                )
+            )
+            .build()
+
+        val serverCallbackArgs: MutableMap<String, String> =
+            HashMap()
+        serverCallbackArgs["user_id"] = "\${current_user_id}"
+        serverCallbackArgs["product_id"] = "\${shared_product_id}"
+
+        KakaoLinkService.getInstance().sendDefault(context, params, serverCallbackArgs, object : ResponseCallback<KakaoLinkResponse?>() {
+                override fun onFailure(errorResult: ErrorResult) {
+                    Log.e(TAG, errorResult.toString())
+                    Toast.makeText(context, "공유하기에 실패했습니다.\n잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onSuccess(result: KakaoLinkResponse?) {
+                    callback(result)
+                }
+            })
     }
 
     fun setAlert(key: KEY, isChecked: Boolean, alarmId: Int) {

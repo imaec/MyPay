@@ -1,21 +1,24 @@
 package com.imaec.mypay.ui.view.activity
 
 import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.NumberPicker
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.imaec.mypay.*
 import com.imaec.mypay.base.BaseActivity
 import com.imaec.mypay.databinding.ActivityInputBinding
 import com.imaec.mypay.viewmodel.InputViewModel
-import com.imaec.mypay.ui.adapter.OptionAdapter
 import com.imaec.mypay.ui.callback.KeyboardVisibilityListener
 import com.imaec.mypay.ui.view.CommonDialog
 import com.imaec.mypay.utils.*
 import com.imaec.mypay.utils.SharedPreferenceManager.KEY
+import kotlinx.android.synthetic.main.activity_input.*
 
 class InputActivity : BaseActivity(), View.OnClickListener {
 
@@ -35,14 +38,14 @@ class InputActivity : BaseActivity(), View.OnClickListener {
             bottomSheetBehavior = BottomSheetBehavior.from(linearBottomSheet).hide()
         }
 
-        initListener()
+        initLayout()
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.text_pay_day -> showOption(resources.getStringArray(R.array.pay_day), viewModel.payDay)
-            R.id.text_work_start -> showOption(resources.getStringArray(R.array.work_time), viewModel.startTime)
-            R.id.text_work_end -> showOption(resources.getStringArray(R.array.work_time), viewModel.endTime)
+            R.id.text_pay_day -> showPicker(AlertManager.PAY, viewModel.payDay)
+            R.id.text_work_start -> showPicker(AlertManager.START, viewModel.startTime)
+            R.id.text_work_end -> showPicker(AlertManager.END, viewModel.endTime)
             R.id.view_bg -> bottomSheetBehavior.hide()
             R.id.btn_confirm -> {
                 // 급여 입력 확인
@@ -107,7 +110,7 @@ class InputActivity : BaseActivity(), View.OnClickListener {
      * BottomSheetBehavior Callback 설정
      * Keyboard Visibility Listener 설정
      */
-    private fun initListener() {
+    private fun initLayout() {
         binding.apply {
             editPay.addTextChangedListener(NumberFormatTextWatcher(editPay))
             textPayDay.setOnClickListener(this@InputActivity)
@@ -136,28 +139,68 @@ class InputActivity : BaseActivity(), View.OnClickListener {
                 }
             }
         })
+
+        setDividerColor()
+    }
+
+    private fun setDividerColor() {
+        val pickerFiled = NumberPicker::class.java.declaredFields
+        for (field in pickerFiled) {
+            if (field.name == "mSelectionDivider") {
+                field.isAccessible = true
+                try {
+                    val colorDrawable = ColorDrawable(resources.getColor(R.color.colorPrimary))
+                    field.set(picker, colorDrawable)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     /**
      * 급여일, 출/퇴근 시간 선택 옵션
      */
-    private fun showOption(arr: Array<String>, liveVar: MutableLiveData<String>) {
-        binding.recyclerOption.adapter = OptionAdapter {
-            liveVar.value = it as String
-            bottomSheetBehavior.hide()
-        }.apply {
-            addItems(arr)
+    private fun showPicker(type: Int, data: MutableLiveData<String>) {
+        val defaultValue: Int = when (type) {
+            0 -> {
+                var payDay = data.value ?: "5일"
+                payDay = if (payDay == "") "5일" else payDay
+                payDay.replace("일", "").toInt()
+            }
+            1, 2 -> {
+                var time = data.value ?: if (type == 0) "오전 9시" else "오후 6시"
+                time = if (time == "") {
+                    if (type == 1) "오전 9시" else "오후 6시"
+                } else time
+                val addTime = if (time.split(" ")[0] == "오전") 0 else 12
+                time.split(" ")[1].replace("시", "").toInt() + addTime
+            }
+            else -> 1
+        }
+        val arr = if (type == 0) Array(31) {""} else Array(24) {""}
+        for (i in arr.indices) { arr[i] = if (type == 0) "${i+1} 일" else "$i 시" }
+        binding.picker.apply {
+            minValue = if (type == 0) 1 else 0
+            maxValue = if (type == 0) 31 else 23
+            value = defaultValue
+            displayedValues = arr
+            setOnValueChangedListener { _, _, newVal ->
+                data.value = if (type == 0) "${newVal}일" else {
+                    if (newVal == 12) "오후 ${newVal}시" else if (newVal < 12) "오전 ${newVal}시" else "오후 ${newVal-12}시"
+                }
+            }
         }
 
         bottomSheetBehavior.expand()
     }
 
-    private fun BottomSheetBehavior<LinearLayout>.expand() : BottomSheetBehavior<LinearLayout> {
+    private fun <V : View> BottomSheetBehavior<V>.expand() : BottomSheetBehavior<V> {
         state = BottomSheetBehavior.STATE_EXPANDED
         return this
     }
 
-    private fun BottomSheetBehavior<LinearLayout>.hide() : BottomSheetBehavior<LinearLayout> {
+    private fun <V : View> BottomSheetBehavior<V>.hide() : BottomSheetBehavior<V> {
         state = BottomSheetBehavior.STATE_HIDDEN
         return this
     }

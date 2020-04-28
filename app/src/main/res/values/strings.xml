@@ -24,6 +24,11 @@
 
     <string name="edit">수정</string>
     <string name="setting">설정</string>
+    <string name="share">공유하기</string>
+    <string name="share_kakao">카카오톡 공유하기</string>
+    <string name="app_info">앱 정보</string>
+    <string name="app_version">앱 버전</string>
+
     <string name="alert">알림</string>
     <string name="alert_pay_day">월급날 알림</string>
     <string name="alert_start">출근 알림</string>

@@ -142,6 +142,24 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
+<!--        <NumberPicker-->
+<!--            android:id="@+id/picker_pay_day"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"/>-->
+
+<!--        <NumberPicker-->
+<!--            android:id="@+id/picker_start"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"/>-->
+
+<!--        <NumberPicker-->
+<!--            android:id="@+id/picker_end"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"/>-->
+
         <View
             android:id="@+id/view_bg"
             android:layout_width="match_parent"
@@ -152,16 +170,19 @@
         <LinearLayout
             android:id="@+id/linear_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:background="@color/white"
+            android:gravity="center"
             app:behavior_hideable="true"
             app:layout_behavior="@string/bottom_sheet_behavior">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_option"
+            <NumberPicker
+                android:id="@+id/picker"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content"
+                android:paddingLeft="100dp"
+                android:paddingRight="100dp"/>
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
