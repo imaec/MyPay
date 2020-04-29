@@ -12,8 +12,10 @@ class SharedPreferenceManager {
         PREF_NAME_ALERT_PAY_DAY,
         PREF_NAME_ALERT_START,
         PREF_NAME_ALERT_END,
+        PREF_NAME_ALERT_INCLUDE,
         PREF_NAME_ALERT_REGISTERED,
-        PREF_NAME_FCM_TOKEN
+        PREF_NAME_FCM_TOKEN,
+        PREF_NAME_FILE_PATH
     }
 
     companion object {

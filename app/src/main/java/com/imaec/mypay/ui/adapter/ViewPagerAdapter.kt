@@ -15,4 +15,8 @@ class ViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     fun setFragments(listFragment: ArrayList<Fragment>) {
         this.listFragment = listFragment
     }
+
+    fun getFragment(i: Int) : Fragment {
+        return listFragment[i]
+    }
 }

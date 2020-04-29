@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.storage.FirebaseStorage
+import com.imaec.mypay.STORAGE_URL
 import com.imaec.mypay.base.BaseViewModel
 import com.imaec.mypay.utils.*
 import com.imaec.mypay.utils.SharedPreferenceManager.KEY
@@ -15,6 +17,7 @@ import com.kakao.message.template.FeedTemplate
 import com.kakao.message.template.LinkObject
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
+import java.io.ByteArrayOutputStream
 
 class SettingViewModel(context: Context) : BaseViewModel(context) {
 
@@ -23,10 +26,12 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
     val start = MutableLiveData<String>()
     val end = MutableLiveData<String>()
     val appVersion = MutableLiveData<String>()
+    val isProgressVisible = MutableLiveData<Boolean>().set(false)
 
-    val alertPayDay = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_PAY_DAY))
-    val alertStart = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_START))
-    val alertEnd = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_END))
+    // val alertPayDay = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_PAY_DAY))
+    // val alertStart = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_START))
+    // val alertEnd = MutableLiveData<Boolean>().set(getAlert(KEY.PREF_NAME_ALERT_END))
+    val alertInclude = MutableLiveData<Boolean>().set(getPref(KEY.PREF_NAME_ALERT_INCLUDE))
 
     fun setPayInf() {
         pay.value = "${NumberUtil.getKor(SharedPreferenceManager.getInt(context, KEY.PREF_NAME_PAY, 0))}원"
@@ -35,16 +40,12 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
         end.value = SharedPreferenceManager.getString(context, KEY.PREF_NAME_WORK_END, "")
     }
 
-    fun captureGraph() {
-
-    }
-
-    fun share(title: String, description: String, callback: (KakaoLinkResponse?) -> Unit) {
+    fun share(title: String, description: String, imgUrl: String, callback: (KakaoLinkResponse?) -> Unit) {
         val params = FeedTemplate
             .newBuilder(
                 ContentObject.newBuilder(
                     title,
-                    "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+                    imgUrl,
                     LinkObject.newBuilder()
                         .setAndroidExecutionParams("")
                         .build()
@@ -77,6 +78,34 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
                     callback(result)
                 }
             })
+    }
+
+    fun upload(baos: ByteArrayOutputStream, callback: (name: String) -> Unit) {
+        val path = "${DateUtil.getDate("yyyy.MM.dd")}/${DateUtil.getDate("yyyyMMddHHmmssSSS")}.jpg"
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.getReferenceFromUrl(STORAGE_URL)
+        val imgRef = storageRef.child(path)
+
+        val uploadTask = imgRef.putBytes(baos.toByteArray())
+        uploadTask.addOnFailureListener {
+
+        }.addOnSuccessListener {
+            imgRef.downloadUrl.addOnSuccessListener {
+                if (SharedPreferenceManager.getString(context, KEY.PREF_NAME_FILE_PATH, "").isNotEmpty()) {
+                    delete(SharedPreferenceManager.getString(context, KEY.PREF_NAME_FILE_PATH, ""))
+                }
+                SharedPreferenceManager.putValue(context, KEY.PREF_NAME_FILE_PATH, path)
+                callback(it.toString())
+            }
+        }
+    }
+
+    private fun delete(path: String) {
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.getReferenceFromUrl(STORAGE_URL)
+        val imgRef = storageRef.child(path)
+
+        imgRef.delete()
     }
 
     fun setAlert(key: KEY, isChecked: Boolean, alarmId: Int) {
@@ -116,9 +145,5 @@ class SettingViewModel(context: Context) : BaseViewModel(context) {
             }
             else -> {}
         }
-    }
-
-    private fun getAlert(key: KEY) : Boolean {
-        return SharedPreferenceManager.getBool(context, key, true)
     }
 }

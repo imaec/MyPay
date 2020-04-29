@@ -238,6 +238,21 @@
                     app:layout_constraintTop_toBottomOf="@id/view_divider4" />
 
                 <TextView
+                    android:id="@+id/text_share_include"
+                    style="@style/TextSettingSubTitle"
+                    android:text="@string/share_include"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_share" />
+
+                <Switch
+                    android:id="@+id/switch_include"
+                    style="@style/SwitchSetting"
+                    android:checked="@{viewModel.alertInclude}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_share" />
+
+                <TextView
                     style="@style/TextSettingSubTitle"
                     android:id="@+id/text_share_kakao"
                     android:layout_width="match_parent"
@@ -249,12 +264,13 @@
                     android:gravity="center"
                     android:text="@string/share_kakao"
                     android:textColor="@color/white"
+                    android:textStyle="bold"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_share"/>
+                    app:layout_constraintTop_toBottomOf="@id/text_share_include"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -266,5 +282,18 @@
             android:layout_marginBottom="?attr/actionBarSize"
             ads:adSize="SMART_BANNER"
             ads:adUnitId="ca-app-pub-7147836151485354/1970718029"/>
+
+        <LinearLayout
+            android:id="@+id/linear_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/bgAlpha"
+            app:visible="@{viewModel.isProgressVisible}">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

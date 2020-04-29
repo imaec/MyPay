@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.imaec.mypay.utils.SharedPreferenceManager
 
 abstract class BaseViewModel(var context: Context) : ViewModel() {
 
@@ -36,5 +37,13 @@ abstract class BaseViewModel(var context: Context) : ViewModel() {
     fun MutableLiveData<Boolean>.set(bool: Boolean) : MutableLiveData<Boolean> {
         value = bool
         return this
+    }
+
+    fun getPref(key: SharedPreferenceManager.KEY) : Boolean {
+        return SharedPreferenceManager.getBool(context, key, true)
+    }
+
+    fun setPref(key: SharedPreferenceManager.KEY, bool: Boolean) {
+        SharedPreferenceManager.putValue(context, key, bool)
     }
 }
