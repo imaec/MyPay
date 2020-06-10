@@ -2,15 +2,11 @@ package com.imaec.mypay.ui.view.fragment
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
-import com.imaec.mypay.BuildConfig
 import com.imaec.mypay.R
 import com.imaec.mypay.base.BaseFragment
 import com.imaec.mypay.databinding.FragmentHomeBinding
